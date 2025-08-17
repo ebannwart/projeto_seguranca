@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Projetos em Destaque{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Projetos em Destaque</h2>
+
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <label for="mes">Mês:</label>
+    <select name="mes" id="mes" class="form-select">
+      {% for m in ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'] %}
+        <option value="{{ m }}" {% if m == mes %}selected{% endif %}>{{ m }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="ano">Ano:</label>
+    <input type="number" name="ano" id="ano" value="{{ ano }}" class="form-control">
+  </div>
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
+</form>
+
+{% if projetos %}
+  {% for projeto in projetos %}
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h4 class="card-title">{{ projeto["titulo"] }}</h4>
+        <p><strong>Responsável:</strong> {{ projeto["responsavel"] }}</p>
+        <p>{{ projeto["descricao"] }}</p>
+        <p><strong>Total de votos:</strong> {{ projeto["total_votos"] }}</p>
+
+        <div class="row">
+          <div class="col-md-6 mb-3 text-center">
+            <h6>Antes:</h6>
+            <a href="{{ url_for('static', filename='uploads/' + projeto['imagem_antes']) }}" target="_blank">
+              <img src="{{ url_for('static', filename='uploads/' + projeto['imagem_antes']) }}"
+                   class="img-fluid rounded"
+                   style="max-height: 500px; object-fit: contain; cursor: pointer;"
+                   alt="Imagem Antes">
+            </a>
+          </div>
+          <div class="col-md-6 mb-3 text-center">
+            <h6>Depois:</h6>
+            <a href="{{ url_for('static', filename='uploads/' + projeto['imagem_depois']) }}" target="_blank">
+              <img src="{{ url_for('static', filename='uploads/' + projeto['imagem_depois']) }}"
+                   class="img-fluid rounded"
+                   style="max-height: 500px; object-fit: contain; cursor: pointer;"
+                   alt="Imagem Depois">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-warning">Nenhum projeto encontrado para {{ mes }} de {{ ano }}.</div>
+{% endif %}
+
+<a href="/" class="btn btn-outline-secondary mt-4">Voltar</a>
+{% endblock %}

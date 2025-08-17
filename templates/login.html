@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Plataforma de Segurança{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Login</h2>
+
+<form method="post" class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">E-mail</label>
+        <input type="email" name="email" class="form-control" required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Senha</label>
+        <input type="password" name="senha" class="form-control" required>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <a href="/cadastro" class="btn btn-outline-secondary ms-2">Cadastrar-se</a>
+    </div>
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="alert alert-danger mt-4">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+{% endblock %}

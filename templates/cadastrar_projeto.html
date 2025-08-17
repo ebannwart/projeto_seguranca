@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar Projeto{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Novo Projeto de Segurança</h2>
+
+<form method="post" enctype="multipart/form-data" class="row g-3">
+    <div class="col-md-6">
+        <label class="form-label">Título</label>
+        <input type="text" name="titulo" class="form-control" required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Responsável</label>
+        <input type="text" name="responsavel" class="form-control" required>
+    </div>
+
+    <div class="col-12">
+        <label class="form-label">Descrição</label>
+        <textarea name="descricao" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Foto Antes</label>
+        <input type="file" name="imagem_antes" class="form-control" accept=".jpg,.jpeg,.png" required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Foto Depois</label>
+        <input type="file" name="imagem_depois" class="form-control" accept=".jpg,.jpeg,.png" required>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Cadastrar Projeto</button>
+        <a href="/" class="btn btn-outline-secondary ms-2">Voltar</a>
+    </div>
+</form>
+{% endblock %}

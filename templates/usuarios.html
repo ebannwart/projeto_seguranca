@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciar Usuários{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Lista de Usuários</h2>
+
+<table class="table table-bordered align-middle">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Tipo</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in usuarios %}
+        <tr>
+            <td>{{ user["nome"] }}</td>
+            <td>{{ user["email"] }}</td>
+            <td>{{ user["tipo"] }}</td>
+            <td>
+                {% if user["aprovado"] == 1 %}
+                    <span class="badge bg-success">Aprovado</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Pendente</span>
+                {% endif %}
+            </td>
+            <td>
+                <form method="post" class="d-flex flex-wrap gap-2">
+                    <input type="hidden" name="usuario_id" value="{{ user['id'] }}">
+                    
+                    {% if user["aprovado"] != 1 %}
+                        <button name="acao" value="aprovar" class="btn btn-sm btn-success">Aprovar</button>
+                        <button name="acao" value="recusar" class="btn btn-sm btn-warning">Recusar</button>
+                    {% endif %}
+
+                    <button name="acao" value="excluir" class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Tem certeza que deseja excluir o usuário {{ user['nome'] }}?')">
+                        Excluir
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="/" class="btn btn-outline-secondary mt-3">Voltar</a>
+{% endblock %}
+
+
+

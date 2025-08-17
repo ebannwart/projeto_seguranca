@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Início - Plataforma de Segurança{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h2 class="mb-4">Bem-vindo, {{ usuario }}!</h2>
+    <p>Escolha uma das ações abaixo:</p>
+
+    <div class="d-grid gap-3 col-6 mx-auto mt-4">
+        <a href="/cadastrar_projeto" class="btn btn-csn btn-lg">📤 Cadastrar Novo Projeto</a>
+        <a href="/votar" class="btn btn-csn btn-lg">🗳️ Votar no Projeto Destaque</a>
+        <a href="/vencedor" class="btn btn-csn btn-lg">🏆 Ver Projeto Vencedor</a>
+    
+        {% if session['tipo'] == 'administrador' %}
+            <a href="/usuarios" class="btn btn-csn btn-lg">👥 Gerenciar Usuários</a>
+            <a href="/gerenciar_projetos" class="btn btn-csn btn-lg">🛠️ Gerenciar Projetos</a>
+        {% endif %}
+    
+        <a href="/logout" class="btn btn-csn btn-lg">🚪 Sair</a>
+    </div>
+    </div>
+</div>
+{% endblock %}

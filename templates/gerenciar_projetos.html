@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Gerenciar Projetos{% endblock %}
+{% block content %}
+<h2 class="mb-4">Gerenciar Projetos</h2>
+
+<form method="get" class="row g-2 mb-4">
+  <div class="col-md-4">
+    <label for="mes">Mês:</label>
+    <select name="mes" id="mes" class="form-select">
+      {% for m in ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'] %}
+        <option value="{{ m }}" {% if m == mes %}selected{% endif %}>{{ m }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label for="ano">Ano:</label>
+    <input type="number" name="ano" id="ano" class="form-control" value="{{ ano }}">
+  </div>
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </div>
+</form>
+
+{% if projetos %}
+  {% for projeto in projetos %}
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h4 class="card-title">{{ projeto["titulo"] }}</h4>
+        <p><strong>Responsável:</strong> {{ projeto["responsavel"] }}</p>
+        <p>{{ projeto["descricao"] }}</p>
+        <div class="row">
+          <div class="col-md-6">
+            <img src="{{ url_for('static', filename='uploads/' + projeto['imagem_antes']) }}"
+                 class="img-fluid rounded">
+          </div>
+          <div class="col-md-6">
+            <img src="{{ url_for('static', filename='uploads/' + projeto['imagem_depois']) }}"
+                 class="img-fluid rounded">
+          </div>
+        </div>
+        <form method="post" action="{{ url_for('excluir_projeto', projeto_id=projeto['id']) }}" class="mt-3">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente excluir este projeto?')">Excluir Projeto</button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-warning">Nenhum projeto encontrado para {{ mes }} de {{ ano }}.</div>
+{% endif %}
+
+<a href="/" class="btn btn-outline-secondary mt-4">Voltar</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #002f6c !important; /* Azul CSN */
+}
+
+.navbar-brand img {
+    margin-right: 8px;
+}
+
+.table th {
+    background-color: #004080;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #004080;
+    border: none;
+}
+
+.btn-outline-secondary {
+    border-color: #004080;
+    color: #004080;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #004080;
+    color: white;
+}
+
+.btn-csn {
+    background-color: #0033A0;
+    color: white;
+    border: none;
+}
+
+.btn-csn:hover {
+    background-color: #00287F;
+    color: white;
+}
