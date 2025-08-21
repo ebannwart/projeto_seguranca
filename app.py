@@ -36,7 +36,7 @@ def allowed_file(filename):
 def index():
     if "usuario" not in session:
         return redirect(url_for("login"))
-    return render_template("index.html", usuario=session["usuario"])
+    return render_template("index.html", usuario=session["usuario"], ocultar_logo=False)
 
 
 # Login
@@ -60,7 +60,7 @@ def login():
         
         else:
             flash("Login inválido")
-    return render_template("login.html")
+    return render_template("login.html", ocultar_logo=True)
 
 # Cadastro de usuário
 @app.route("/cadastro", methods=["GET", "POST"])
@@ -80,7 +80,7 @@ def cadastro():
             return redirect(url_for("login"))
         except sqlite3.IntegrityError:
             flash("E-mail já cadastrado.")
-    return render_template("cadastro.html")
+    return render_template("cadastro.html", ocultar_logo=True)
 
 # Logout
 @app.route("/logout")
@@ -135,7 +135,7 @@ def cadastrar_projeto():
         conn.close()
         return "✅ Projeto cadastrado com sucesso!"
 
-    return render_template("cadastrar_projeto.html")
+    return render_template("cadastrar_projeto.html", ocultar_logo=True)
 
 @app.route("/vencedor", methods=["GET"])
 def vencedor():
@@ -180,7 +180,7 @@ def vencedor():
     """, (mes["id"],)).fetchall()
 
     conn.close()
-    return render_template("vencedor.html", projetos=projetos_ordenados, mes=mes_pt, ano=ano)
+    return render_template("vencedor.html", projetos=projetos_ordenados, mes=mes_pt, ano=ano, ocultar_logo=True)
 
 
 @app.route("/votar", methods=["GET", "POST"])
@@ -240,7 +240,7 @@ def votar():
     """, (mes["id"],)).fetchall()
 
     conn.close()
-    return render_template("votar.html", projetos=projetos, voto_existente=voto_existente)
+    return render_template("votar.html", projetos=projetos, voto_existente=voto_existente, ocultar_logo=True)
 
 @app.route("/usuarios", methods=["GET", "POST"])
 def gerenciar_usuarios():
@@ -274,7 +274,7 @@ def gerenciar_usuarios():
 
     usuarios = conn.execute("SELECT * FROM usuarios ORDER BY aprovado ASC, nome ASC").fetchall()
     conn.close()
-    return render_template("usuarios.html", usuarios=usuarios)
+    return render_template("usuarios.html", usuarios=usuarios, ocultar_logo=True)
 
 @app.route("/gerenciar_projetos", methods=["GET", "POST"])
 #@verifica_login
@@ -322,7 +322,7 @@ def gerenciar_projetos():
         mes_em_ingles = MESES_PT_EN.get(mes_em_portugues)
         projetos = buscar_projetos_por_mes_ano(mes_em_ingles, ano)  # sua função já existente
 
-    return render_template("gerenciar_projetos.html", projetos=projetos, mes=mes, ano=ano)
+    return render_template("gerenciar_projetos.html", projetos=projetos, mes=mes, ano=ano, ocultar_logo=True)
 
 
 @app.route("/excluir_projeto/<int:projeto_id>", methods=["POST"])
